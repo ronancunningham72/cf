@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  stagingBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: BucketOwnerFullControl
+      BucketName : 'e19227-staging-bucket'
+  stagingBucketPolicy: 
+    Type: "AWS::S3::BucketPolicy"
+    Properties: 
+      Bucket: 
+        Ref: "stagingBucket"
+      PolicyDocument: 
+        Statement: 
+          - 
+            Action: 
+              - "s3:GetObject"
+              - "s3:PutObject"            
+            Effect: "Allow"
+            Resource: 
+              Fn::Join: 
+                - ""
+                - 
+                  - "arn:aws:s3:::"
+                  - 
+                    Ref: "stagingBucket"
+                  - "/*"
+            Principal: "*"
+            Condition:
+              IpAddress:  
+                aws:SourceIp: 
+                  - "109.155.126.240/32"
+          
