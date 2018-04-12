@@ -29,5 +29,5 @@ Resources:
             Condition:
               IpAddress:  
                 aws:SourceIp: 
-                  - "109.155.126.240/32"
+                  - ""
           
